@@ -7,7 +7,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            <form action="{{ route('datapribadi.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('datapribadi.store') }}" method="PO ST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="input-group mb-3">
