@@ -17,6 +17,9 @@ Route::post('/profil/edit/{id}', 'App\Http\Controllers\ProfilController@update')
 Route::resource('siswa','App\Http\Controllers\SisfoSiswaController');
 Route::post('siswa/index','App\Http\Controllers\SisfoSiswaController@import')->name('import');
 Route::get('siswa/index',[App\Http\Controllers\SisfoSiswaController::class, 'cari'])->name('cari');
+Route::get('tes', function () {
+    return view('informasi/test');
+});
 
 // Informasi data pribadi siswa
 Route::resource('datapribadi','App\Http\Controllers\DataPribadiController');

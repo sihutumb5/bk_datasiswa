@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Models\datapribadisiswa;
+use App\Models\fotopribadisiswa;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -17,8 +18,8 @@ class DataPribadiController extends Controller
 
     public function index()
     {
-        $datapribadi = datapribadisiswa::all(); 
-        return view ('informasi/datapribadi', compact('datapribadi'));
+        $ambil = datapribadisiswa::all(); 
+        return view ('informasi/datapribadi', compact('ambil'));
     }
 
     public function importdatapribadi(Request $request)
@@ -75,7 +76,7 @@ class DataPribadiController extends Controller
             // dd($data);
         }
             DB::table('datapribadisiswa')->insert($data);
-            return redirect()->route('datapribadi.index');
+            return redirect()->back();
     }
 
     public function create()
@@ -91,10 +92,11 @@ class DataPribadiController extends Controller
         $oriImage = image::make($image)->save($oriPath);
 
         fotopribadisiswa::create([
+            'nis_siswa' => $request->nis_siswa,
             'foto'=> $nameImage,
         ]);
         
-        return redirect()->route('datapribadi.index');
+        return redirect()->back();
     }
 
     /**
