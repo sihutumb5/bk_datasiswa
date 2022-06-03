@@ -75,12 +75,13 @@ class SisfoSiswaController extends Controller
      */
     public function show($id)
     {
+        $idd = $id;
         $tes=sisfosiswa::where('id_data_pribadi',$id)->get();
         $coba=$tes[0]->nis;
         $ambil=datapribadisiswa::where('nis',$coba)->get();
         $foto = DB::table('fotopribadisiswas')->where('nis_siswa', $coba)->value('foto');
         // dd($coba);
-        return view ('informasi/datapribadi', compact(['ambil', 'coba', 'foto']));
+        return view ('informasi/datapribadi', compact(['ambil', 'coba', 'foto', 'idd']));
 
     }
 

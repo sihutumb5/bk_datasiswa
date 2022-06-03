@@ -25,3 +25,6 @@ Route::get('tes', function () {
 Route::resource('datapribadi','App\Http\Controllers\DataPribadiController');
 Route::post('datapribadi/index','App\Http\Controllers\DataPribadiController@importdatapribadi')->name('importdatapribadi');
 
+// PRINT DATA
+Route::get('datapribadi/print/{id}','App\Http\Controllers\DataPribadiController@printdata')->name('printdata');
+

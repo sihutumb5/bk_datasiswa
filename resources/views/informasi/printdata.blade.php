@@ -29,8 +29,27 @@
         border: 1px solid #ccc;
     }
 
+    @media print {
+        img {
+            margin-left: 350px;
+            border-radius: 0% !important;
+            width: 225px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        table {
+            font-size: 13.5px;
+        }
+
+        @page 
+        {
+            margin: 0mm;
+        }
+    }
+
 </style>
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     function PrintTable() {
         var printWindow = window.open('', '', 'height=200,width=400');
         printWindow.document.write('<html><head><title>Table Contents</title>');
@@ -50,78 +69,32 @@
         printWindow.print();
     }
 
-</script>
-
-<div class="container">
-    <div class="row justify-content-center">
+</script> --}}
+<body onload="window.print()" onafterprint="window.close()">
+    
+    <div class="container">
+        <div class="row justify-content-center">
         <div class="col-md-12">
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-6">
-                        <form action="{{ route('datapribadi.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row">
-                                <div class="input-group mb-3">
-                                    <input type="file" name="foto" class="form-control">
-                                    <input type="hidden" name="nis_siswa" value="{{ $coba }}">
-                                    <button type="submit" class="btn btn-success">Upload Gambar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    {{-- FORM Buat Import Excel ke Laravel --}}
-                    <div class="col-6">
-                        <form action="{{ route('importdatapribadi') }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="input-group mb-3">
-                                <input type="file" name="file" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" required>
-                                <button class="btn btn-primary btn-sm" type="submit" id="button-addon2">Import dari
-                                    Excel</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Judul Card Header --}}
-            <div class="card-header d-flex justify-content-between">
-                <h4>SMK BAGIMU NEGERIKU</h4>
-                <p><b>Informasi data pribadi siswa</b></p>
-            </div>
-            <div class="card-header d-flex justify-content-between">
-                <div class="container">
-                    <div class="row float-right">
-                        <div class="col">
-                            <a href="#" class="btn btn-warning btn-sm">Info Konseling</a>
-                        </div>
-                        <div class="col">
-                            <a href="#" class="btn btn-danger btn-sm">Info Penilaian</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="col-md-12">
                 @foreach ($ambil as $ambil)
                 <div class="container" id="dvContents">
 
-
+                    
                     <table id="PrintTable">
-
+                        
                         @isset($foto)
-                        <img src="{{url('/fotosiswa/') . '/' . $foto}}" style="width: 150px; height:150px; margin-top:10px; margin-bottom:10px; border-radius:50% !important;" class="img-fluid" alt="{{ $foto }}">
+                        <img src="{{url('/fotosiswa/') . '/' . $foto}}" class="img-fluid" alt="{{ $foto }}">
                         @endisset
-
-                            <tr>
-                                <th>
-                                    <b>
-                                        <h4 class="text-primary">Data Pribadi Siswa</h4>
-                                    </b>
-                                </th>
-                                <td></td>
-                            </tr>
-
+                        
+                        <tr>
+                            <th>
+                                <b>
+                                    <h4 class="text-primary">Data Pribadi Siswa</h4>
+                                </b>
+                            </th>
+                            <td></td>
+                        </tr>
+                        
                         <tr>
                             <th>NIS</th>
                             <td>: {{ $ambil->nis }}</td>
@@ -158,17 +131,17 @@
                             <th>Alamat Lengkap</th>
                             <td>: {{ $ambil->alamat }}</td>
                         </tr>
-
-                       
-                            <tr>
-                                <th>
-                                    <b>
-                                        <h4 class="text-primary">Data Orang Tua</h4>
-                                    </b>
-                                </th>
-                                <td></td>
-                            </tr>
-
+                        
+                        
+                        <tr>
+                            <th>
+                                <b>
+                                    <h4 class="text-primary">Data Orang Tua</h4>
+                                </b>
+                            </th>
+                            <td></td>
+                        </tr>
+                        
                         <tr>
                             <th>Nama Ayah</th>
                             <td>: {{ $ambil->nama_ayah }}</td>
@@ -271,17 +244,18 @@
                             <td>: {{ $ambil->prestasi }}</td>
                         </tr>
                     </table>
-
+                    
                 </div>
                 @endforeach
-
+                
             </div>
             <div class="modal-footer">
-                {{-- <input type="button" onclick="PrintTable();" value="Print" /> --}}
-                <a href="{{ route('printdata', $idd) }}" class="btn btn-warning" target="_blank">Print</a>
+                
             </div>
         </div>
     </div>
 </div>
 </div>
+</body>
+
 @endsection

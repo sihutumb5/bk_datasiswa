@@ -15,6 +15,7 @@ class CreateFotopribadisiswasTable extends Migration
     {
         Schema::create('fotopribadisiswas', function (Blueprint $table) {
             $table->id();
+            $table->string('nis_siswa');
             $table->string('foto');
             $table->timestamps();
         });

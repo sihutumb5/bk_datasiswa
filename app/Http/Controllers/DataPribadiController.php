@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Models\datapribadisiswa;
 use App\Models\fotopribadisiswa;
+use App\Models\sisfosiswa;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -24,9 +25,6 @@ class DataPribadiController extends Controller
 
     public function importdatapribadi(Request $request)
     {
-        // $this->validate($request, [
-        //     'file' => 'required|mimes:csv,xls,xlsx'
-        // ]);
 
         $file = $request->file('file');
         $spreadsheet = IOFactory::load($file->getRealPath());
@@ -94,9 +92,19 @@ class DataPribadiController extends Controller
         fotopribadisiswa::create([
             'nis_siswa' => $request->nis_siswa,
             'foto'=> $nameImage,
-        ]);
+        ]); 
         
         return redirect()->back();
+    }
+
+    public function printdata($id)
+    {
+        $tes=sisfosiswa::where('id_data_pribadi',$id)->get();
+        $coba=$tes[0]->nis;
+        $ambil=datapribadisiswa::where('nis',$coba)->get();
+        $foto = DB::table('fotopribadisiswas')->where('nis_siswa', $coba)->value('foto');
+        // dd($coba);
+        return view ('informasi/printdata', compact(['ambil', 'coba', 'foto']));
     }
 
     /**
@@ -107,7 +115,7 @@ class DataPribadiController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
